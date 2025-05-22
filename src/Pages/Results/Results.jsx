@@ -3,14 +3,15 @@ import Layout from "../../components/Layout/Layout";
 import classes from "./Results.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { productUrl } from "../../Api/endPoints"
+import { productUrl } from "../../Api/endPoints";
 import ProductCard from "../../components/Product/ProductCard";
 import Loader from "../../components/Loader/Loader";
 function Results() {
   const [results, setresults] = useState([]);
-    const [isLoding,setIsLoding]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const { categoryName } = useParams();
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${productUrl}/products/category/${categoryName}`)
       .then((res) => {
@@ -19,7 +20,10 @@ function Results() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(()=>{
+        setIsLoading(false)
+      })
   }, [categoryName]);
 
   return (
@@ -28,7 +32,7 @@ function Results() {
         <h1 style={{ padding: "30px" }}>Results</h1>
         <p style={{ padding: "30px" }}>Category / {categoryName}</p>
         <hr />
-        {isLoding ? (
+        {isLoading ? (
           <Loader />
         ) : (
           <div className={classes.products_container}>
