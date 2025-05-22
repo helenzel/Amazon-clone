@@ -23,10 +23,11 @@ function Productdetail() {
   }, []);
   return (
     <Layout>
-      {isLoding? (<Loader/>):(<ProductCard product={product} />)}
-      <div>
-        
-      </div>
+      {isLoding? (<Loader/>):(<ProductCard product={product}
+      flex={true}
+      renderDesc={true}
+       />)}
+
     </Layout>
   );
 }
