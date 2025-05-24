@@ -9,7 +9,7 @@ function Cart() {
   const { state, dispatch } = useContext(DataContext);
   const { basket, user } = state;
   const total=basket.reduce((amount,item)=>
-  item.price + amount
+  item.price * item.amount + amount
   ,0)
   return (
     <Layout>
