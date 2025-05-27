@@ -1,6 +1,7 @@
 import { Type } from "./action.type";
 export const initialState = {
   basket: [],
+  user:null
 };
 export const Reducer = (state, action) => {
   switch (action.type) {
@@ -41,6 +42,11 @@ if(newBasket[index].amount > 1){
         basket:newBasket,
     };
   }
+  case Type.SET_USER:
+    return{
+      ...state,
+      user:action.user
+    }
     default:
       return state;
   }

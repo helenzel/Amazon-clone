@@ -9,21 +9,21 @@ import Loader from "../../components/Loader/Loader";
 function Productdetail() {
   const { productId } = useParams();
   const [product, setproduct] = useState({});
-  const [isLoding,setIsLoding]=useState(false)
+  const [isLoading,setIsLoading]=useState(false)
   useEffect(() => {
-    setIsLoding(true)
+    setIsLoading(true)
     axios.get(`${productUrl}/products/${productId}`)
     .then((res)=>{
       setproduct(res.data);
-      setIsLoding(false)
+      setIsLoading(false)
     }).catch((err)=>{
       console.log(err);
-      setIsLoding(false)
+      setIsLoading(false)
     })
   }, []);
   return (
     <Layout>
-      {isLoding? (<Loader/>):(<ProductCard product={product}
+      {isLoading? (<Loader/>):(<ProductCard product={product}
       flex={true}
       renderDesc={true}
       renderAdd={true}
