@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+ import React, { useContext } from "react";
 import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import LowerHeader from "./LowerHeader";
@@ -6,9 +6,11 @@ import { SlLocationPin } from "react-icons/sl";
 import { IoIosSearch } from "react-icons/io";
 import { BiCart } from "react-icons/bi";
 import { DataContext } from "../DataProvider/DataProvider";
+import {auth} from "../../Utilty/firebase"
 function Header() {
  const{state,dispatch} =useContext(DataContext);
  const basket=state.basket
+ const user=state.user
  const totalItem=basket?.reduce((amount,item)=>{
   return item.amount + amount
  },0)
@@ -55,9 +57,20 @@ function Header() {
               </select>
             </Link>
             {/* three components */}
-            <Link to="/auth">
-              <p>Sign In</p>
-              <span>Account & Lists</span>
+            <Link to={!user && "/auth"}>
+              <div>
+                {user ? (
+                  <>
+                    <p>Hello, {user.email.split("@")[0]}</p>
+                    <span onClick={()=>auth.signOut()}>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello,Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
+              </div>
             </Link>
             {/* orders */}
             <Link to="/orders">
