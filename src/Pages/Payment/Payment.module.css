@@ -42,3 +42,16 @@ cursor: pointer;
 .payment_details button:hover{
   background-color: var(--primary-shade);
 }
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: rgb(52, 52,);
+}
+
+@media screen  and (max-width:768px){
+  .flex{
+    flex-direction: column;
+  }
+}

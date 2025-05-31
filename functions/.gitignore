@@ -1,2 +1,57 @@
+##########################
+# Logs and Debug Files   #
+##########################
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+##########################
+# Dependency Folders     #
+##########################
 node_modules/
+functions/node_modules/
+
+##########################
+# Build Output           #
+##########################
+dist/
+dist-ssr/
+build/
+.cache/
+functions/lib/
+functions/dist/
+
+##########################
+# Firebase               #
+##########################
+.firebase/
+.firebaserc
+firebase-debug.log
+firebase-debug.*
+
+##########################
+# Environment Files      #
+##########################
+.env
+.env.*
 *.local
+
+##########################
+# OS and Editor Crap     #
+##########################
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Allow helpful VSCode config (optional)
+!.vscode/extensions.json
