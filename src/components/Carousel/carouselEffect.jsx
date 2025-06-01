@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import classes from "./carousel.module.css";
 
 import {img} from "./Img/Data"
-function CarouselEffect() {
+function carouselEffect() {
   return (
     <div>
       <Carousel
@@ -23,4 +23,4 @@ function CarouselEffect() {
   );
 }
 
-export default CarouselEffect;
+export default carouselEffect;
