@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import classes from "./Signup.module.css";
-import { Link , useNavigate } from "react-router-dom";
+import { Link , useNavigate,useLocation, redirect } from "react-router-dom";
 import { auth } from "../../Utilty/firebase";
 import {
   signInWithEmailAndPassword,
@@ -12,14 +12,17 @@ import { ClipLoader } from "react-spinners";
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setloading] = useState({
     signIn: false,
     signup: false,
   });
   const { state, dispatch } = useContext(DataContext);
   const { user } = state;
-  const navigate =useNavigate()
+  const navigate =useNavigate();
+  const navStateDate=useLocation()
+  const message = navStateDate?.state?.msg || "";
+  const redirectPath = navStateDate?.state?.redirect || "/";
   const authHandler = async (e) => {
     e.preventDefault();
     console.log(e.target.name);
@@ -33,7 +36,7 @@ function Auth() {
             user: userInfo.user,
           });
           setloading({ ...loading, signIn: false });
-          navigate("/");
+          navigate(redirectPath);
         })
         .catch((err) => {
           setError(err.message);
@@ -49,7 +52,7 @@ function Auth() {
             user: userInfo.user,
           });
           setloading({ ...loading, signup: false });
-          navigate("/");
+          navigate(redirectPath);
         })
         .catch((err) => {
           setError(err.message);
@@ -57,6 +60,8 @@ function Auth() {
         });
     }
   };
+ 
+  
   return (
     <section className={classes.login}>
       <Link to="/">
@@ -67,6 +72,18 @@ function Auth() {
       </Link>
       <div className={classes.login_container}>
         <h1>Sign IN</h1>
+        {navStateDate.state.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateDate.state.msg}
+          </small>
+        )}
         <form action="">
           <div>
             <label htmlFor="email">Email</label>
@@ -89,10 +106,24 @@ function Auth() {
           <button
             name="signin"
             type="submit"
+            disabled={loading.signIn}
             onClick={authHandler}
             className={classes.login_signInButton}
           >
             {loading.signIn ? <ClipLoader color="#000" size={15} /> : "Sign In"}
+          </button>
+          <button
+            onClick={ authHandler}
+            name="signup"
+            type="submit"
+            disabled={loading.signup}
+            className={classes.login_registerButton}
+          >
+            {loading.signup ? (
+              <ClipLoader color="#000" size={15} />
+            ) : (
+              "Create your Amazon Account"
+            )}
           </button>
         </form>
         <p>
@@ -100,18 +131,7 @@ function Auth() {
           sale.Please see our Privacy Notice,our Cookies Notice and our
           Interest-Based Ads Notice
         </p>
-        <button
-          name="signup"
-          type="submit"
-          onClick={authHandler}
-          className={classes.login_registerButton}
-        >
-          {loading.signup ? (
-            <ClipLoader color="#000" size={15} />
-          ) : (
-            "Create your Amazon Account"
-          )}
-        </button>
+
         {error && (
           <small style={{ paddingTop: "5px", color: "red" }}> {error}</small>
         )}

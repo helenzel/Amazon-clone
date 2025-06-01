@@ -7,6 +7,7 @@ import Orders from "./src/Pages/Orders/Orders";
 import Cart from "./src/Pages/Cart/Cart";
 import Results from "./src/Pages/Results/Results";
 import Productdetails from "./src/Pages/Productdetail/Productdetail";
+import ProtectedRoute from "./src/components/ProtectedRoute/ProtectedRoute";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(
@@ -22,15 +23,31 @@ function Routing() {
         <Route
           path="/payment"
           element={
-            <Elements stripe={stripePromise}>
-              <Payment />
-            </Elements>
+            <ProtectedRoute
+              msg={"you must log in to pay"}
+              redirect={"/payment"}
+            >
+              <Elements stripe={stripePromise}>
+                <Payment />
+              </Elements>
+            </ProtectedRoute>
           }
         />
-        <Route path="/orders" element={<Orders />} />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute
+              msg={"you must log in to access your orders"}
+              redirect={"/orders"}
+            >
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/category/:categoryName" element={<Results />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products/:productId" element={<Productdetails />} />
+        <Route path="*" element={<div>404 - Page Not Found</div>} />
       </Routes>
     </Router>
   );
