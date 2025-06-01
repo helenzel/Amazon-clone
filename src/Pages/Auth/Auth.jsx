@@ -21,7 +21,7 @@ function Auth() {
   const { user } = state;
   const navigate =useNavigate();
   const navStateDate=useLocation()
-  const message = navStateDate?.state?.msg || "";
+  const message = navStateDate?.state?.msg ?? "";
   const redirectPath = navStateDate?.state?.redirect || "/";
   const authHandler = async (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ function Auth() {
       </Link>
       <div className={classes.login_container}>
         <h1>Sign IN</h1>
-        {navStateDate.state.msg && (
+        {message && (
           <small
             style={{
               padding: "5px",
@@ -81,7 +81,7 @@ function Auth() {
               fontWeight: "bold",
             }}
           >
-            {navStateDate.state.msg}
+            {message}
           </small>
         )}
         <form action="">

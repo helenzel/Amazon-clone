@@ -10,8 +10,9 @@ import { axiosInstance } from "../../Api/axios";
 import {db} from "../../Utilty/firebase";
 import { setDoc, doc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Type } from "../../Utilty/action.type";
 function Payment() {
-  const { state } = useContext(DataContext);
+  const { state,dispatch } = useContext(DataContext);
   const basket = state.basket;
   const user = state.user;
   const totalItem = basket?.reduce((total, item) => {
@@ -75,6 +76,8 @@ function Payment() {
           created: confirmation.paymentIntent.created,
         }
       );
+      // empty the basket
+      dispatch({type:Type.EMPTY_BASKET})
       navigate("/orders",{state:{msg:"you have placed new Order"}})
     } catch (error) {
       console.error("Payment error:", error);
