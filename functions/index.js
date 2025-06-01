@@ -1,3 +1,4 @@
+/* eslint-env node */
 const functions = require("firebase-functions");
 const logger = require("firebase-functions/logger");
 const cors = require("cors");

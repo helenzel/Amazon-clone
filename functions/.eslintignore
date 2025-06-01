@@ -1,0 +1,20 @@
+# Ignore ESLint config files
+.eslintrc.js
+functions/.eslintrc.js
+
+# Ignore logs
+*.log
+functions/*.log
+
+# Ignore node_modules folders everywhere
+node_modules/
+functions/node_modules/
+
+# Ignore environment files
+*.local
+functions/*.local
+
+# Ignore build or generated files (if any)
+build/
+dist/
+functions/lib/
