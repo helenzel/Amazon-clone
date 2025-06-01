@@ -1,4 +1,4 @@
-export const categoryinfo = [
+export const Categoryinfo = [
   {
     name: "women's clothing",
     title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
